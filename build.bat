@@ -44,5 +44,21 @@ pyinstaller32 -F AppGen.py -i icon.ico --upx-dir upx32 --upx-exclude=vcruntime14
                            --exclude-module six ^
                            --exclude-module wrapt ^
                            --exclude-module astroid ^
-                           --exclude-module isort
+                           --exclude-module isort ^
+                           --exclude-module tkinter ^
+                           --exclude-module platform ^
+                           --exclude-module hashlib ^
+                           --exclude-module mailbox ^
+                           --exclude-module mailcap ^
+                           --exclude-module csv ^
+                           --exclude-module doctest ^
+                           --exclude-module webbrowser ^
+                           --exclude-module telnetlib ^
+                           --exclude-module xml ^
+                           --exclude-module xmlrpc ^
+                           --exclude-module queue ^
+                           --exclude-module urllib ^
+                           --exclude-module ctypes ^
+                           --exclude-module locale ^
+                           --exclude-module gettext
 pause
