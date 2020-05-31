@@ -1,36 +1,61 @@
 import os
 import shutil
 
-if os.path.exists("dsiware"):
-    shutil.rmtree("dsiware")
-os.mkdir("dsiware")
+def agen(apath, dst):
+    files = []
 
-num = 0
+    dware = os.path.join(dst, 'dsiware')
+    if os.path.exists(dware):
+        shutil.rmtree(dware)
+    os.mkdir(dware)
 
-for app in os.listdir():
-    try:
-        for titleid in os.listdir(app + "/data/"):
-            if titleid.endswith(".sav"):
-                if titleid.startswith("pri"):
-                    print("/{}/data/{}".format(app, titleid))
-                    shutil.copy("{}/data/{}".format(app, titleid), "dsiware")
-                    os.rename("dsiware/{}".format(titleid), "dsiware/{}.prv".format(app))
-                if titleid.startswith("pub"):
-                    print("/{}/data/{}".format(app, titleid))
-                    shutil.copy("{}/data/{}".format(app, titleid), "dsiware")
-                    os.rename("dsiware/{}".format(titleid), "dsiware/{}.pub".format(app))
-        for title in os.listdir(app + "/content/"):
-            if title.endswith(".app"):
-                print("/{}/content/{}".format(app, title))
-                shutil.copy("{}/content/{}".format(app, title), "dsiware")
-                os.rename("dsiware/{}".format(title), "dsiware/{}.nds".format(app))
-                num += 1
-        os.remove("dsiware/484e474a.prv")
-        os.remove("dsiware/484e474a.nds")
-        os.remove("dsiware/534c524e.nds")
-        os.remove("dsiware/53524c41.nds")
-    except:
-        pass
+    num = 0
 
-if num == 0:
-    shutil.rmtree("dsiware")
+    for app in os.listdir(apath):
+        apps = apath + '\\' + app
+        try:
+            for title in os.listdir(apps + '\\' + 'content'):
+                if title.endswith('.app'):
+                    if app != '53524c41' and app != '484e474a' and app != '534c524e' :
+                        print('{}\content\{}'.format(app, title))
+                    shutil.copy(apath + '\{}\content\{}'.format(app, title), dware)
+                    os.rename(dware + '\{}'.format(title), dware + '\{}.nds'.format(app))
+                    num += 1
+        except:
+            pass
+
+        try:
+            for titleid in os.listdir(apps + '\\' + 'data'):
+                if titleid.endswith('.sav'):
+                    if titleid.startswith('pri'):
+                        if app != '484e474a':
+                            print('{}\data\{}'.format(app, titleid))
+                        shutil.copy(apath + '\{}\data\{}'.format(app, titleid), dware)
+                        os.rename(dware + '\{}'.format(titleid), dware + '\{}.prv'.format(app))
+                    if titleid.startswith('pub'):
+                        print('{}\data\{}'.format(app, titleid))
+                        shutil.copy(apath + '\{}\data\{}'.format(app, titleid), dware)
+                        os.rename(dware + '\{}'.format(titleid), dware + '\{}.pub'.format(app))
+        except:
+            pass
+
+    if os.path.exists(dware + '\\' + '484e474a.prv'):
+        files.append(dware + '\\' + '484e474a.prv')
+    if os.path.exists(dware + '\\' + '484e474a.nds'):
+        files.append(dware + '\\' + '484e474a.nds')
+    if os.path.exists(dware + '\\' + '534c524e.nds'):
+        files.append(dware + '\\' + '534c524e.nds')
+    if os.path.exists(dware + '\\' + '53524c41.nds'):
+        files.append(dware + '\\' + '53524c41.nds')
+
+    while len(files) > 0:
+        try:
+            os.remove(files.pop())
+        except:
+            pass
+
+    if num == 0:
+        shutil.rmtree(dware)
+
+if __name__ == '__main__':
+    agen(os.getcwd(), os.getcwd())
