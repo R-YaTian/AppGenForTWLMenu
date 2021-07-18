@@ -2,6 +2,8 @@ import os
 import shutil
 
 def agen(apath, dst):
+    print('AppGen V1.7 - BY R-YaTian')
+
     files = []
 
     dware = os.path.join(dst, 'dsiware')
