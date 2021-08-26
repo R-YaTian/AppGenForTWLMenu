@@ -4,7 +4,7 @@ from shutil import rmtree, copyfile
 def agen(apath, dst):
     print('AppGen V1.8 - BY R-YaTian')
 
-    files = ['dsiware', 'appgen.py', 'Appgen.exe', '53524c41', '484e474a', '534c524e']
+    files = ['dsiware', 'appgen.py', '53524c41', '484e474a', '534c524e']
 
     dware = path.join(dst, 'dsiware')
 
@@ -16,7 +16,7 @@ def agen(apath, dst):
     num = 0
 
     for app in listdir(apath):
-        if app in files:
+        if app in files or app.endswith('.exe'):
             continue
         apps = path.join(apath, app)
         try:
