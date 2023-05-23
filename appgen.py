@@ -1,6 +1,7 @@
 from os import path, getcwd, mkdir, listdir
 from shutil import rmtree, copyfile
 
+
 def agen(apath, dst):
     print('AppGen V1.8 - BY R-YaTian')
 
@@ -42,6 +43,7 @@ def agen(apath, dst):
 
     if num == 0 and dst == getcwd():
         rmtree(dware)
+
 
 if __name__ == '__main__':
     agen(getcwd(), getcwd())
